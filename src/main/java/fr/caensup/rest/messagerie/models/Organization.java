@@ -1,13 +1,17 @@
 package fr.caensup.rest.messagerie.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,11 +43,13 @@ public class Organization {
 	@Column(length = 20, nullable = false)
 	private String aliases;
 
-	@OneToMany(mappedBy = "organization")
-	private List<Group> groupes;
+	@JsonIgnore
+	@OneToMany(mappedBy = "organization", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	private List<Group> groupes = new ArrayList<>();
 
-	@OneToMany(mappedBy = "organization")
-	private List<User> users;
+	@JsonIgnore
+	@OneToMany(mappedBy = "organization", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	private List<User> users = new ArrayList<>();
 
 	public void addGroup(Group gr) {
 		if (groupes.add(gr)) {

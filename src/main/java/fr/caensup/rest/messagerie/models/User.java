@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -46,9 +48,11 @@ public class User {
 	@Column(nullable = true)
 	private boolean suspended;
 
-	@ManyToOne(optional = false)
+	@JsonIgnore
+	@ManyToOne
 	private Organization organization;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "users")
 	private List<Group> groupes;
 

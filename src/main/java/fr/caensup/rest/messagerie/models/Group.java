@@ -1,5 +1,6 @@
 package fr.caensup.rest.messagerie.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -39,8 +40,8 @@ public class Group {
 	@Column(length = 40, nullable = false)
 	private String aliases;
 
-	@ManyToMany
-	private List<User> users;
+	@ManyToMany()
+	private List<User> users = new ArrayList<>();
 
 	@ManyToOne
 	private Organization organization;
